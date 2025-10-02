@@ -1,0 +1,99 @@
+<section>
+  <div class="container my-8">
+    <h1 class="my-3 font-bold capitalize">register form</h1>
+    <form [formGroup]="registeratinForm">
+      <!-- user name -->
+      <div pFocusTrap class="field">
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-user"></i>
+          </p-inputGroupAddon>
+          <input [autofocus]="true" formControlName="name" pInputText placeholder="Username" />
+        </p-inputGroup>
+        <div class="valid">
+          @if (name.dirty && name.touched ) {
+          @if (name.getError('required') ) {
+          <p-messages [value]="[{severity: 'error', detail: 'name is required', summary: 'validation error' }]"
+            [enableService]="false" [closable]="false" />
+          }@if (name.getError('minlength') ) {
+          <p-messages
+            [value]="[{severity: 'error', detail: 'your name have more 3 characters', summary: 'validation error' }]"
+            [enableService]="false" [closable]="false" />
+          }@if (name.getError('maxlength') ) {
+          <p-messages
+            [value]="[{severity: 'error', detail: 'your name have less than 15 characters', summary: 'validation error' }]"
+            [enableService]="false" [closable]="false" />
+          }
+          }
+        </div>
+      </div>
+      <!-- user email -->
+      <div class="field">
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-envelope"></i>
+          </p-inputGroupAddon>
+          <input formControlName="email" pInputText placeholder="email" />
+        </p-inputGroup>
+        <div class="valid">
+          @if (email.dirty && email.touched ) {
+          @if (email.getError('required') ) {
+          <p-messages [value]="[{severity: 'error', detail: 'email is required', summary: 'validation error' }]"
+            [enableService]="false" [closable]="false" />
+          }@if (email.getError('email') ) {
+          <p-messages [value]="[{severity: 'error', detail: 'invaild email', summary: 'validation error' }]"
+            [enableService]="false" [closable]="false" />
+          }
+          }
+        </div>
+      </div>
+      <!-- user password -->
+      <div class="field">
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-lock"></i>
+          </p-inputGroupAddon>
+          <input formControlName="password" pInputText placeholder="password" />
+        </p-inputGroup>
+        <div class="valid">
+          @if (password.dirty && password.touched ) {
+          @if (password.getError('required') ) {
+          <p-messages [value]="[{severity: 'error', detail: 'password is required', summary: 'validation error' }]"
+            [enableService]="false" [closable]="false" />
+          }
+          }
+        </div>
+      </div>
+      <!-- rePassword -->
+      <div class="field">
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-lock"></i>
+          </p-inputGroupAddon>
+          <input formControlName="avatar" pInputText placeholder="rePassword" />
+        </p-inputGroup>
+        <!-- <div class="valid">
+          @if (avatar.dirty && avatar.touched ) {
+          @if (avatar.getError('passowrdnotmatch') ) {
+          <p-messages [value]="[{severity: 'error', detail: 'rePassword not match', summary: 'validation error' }]"
+            [enableService]="false" [closable]="false" />
+          }
+          }
+        </div> -->
+      </div>
+      <div class="card flex justify-content-center">
+        <p-button (onClick)="submit()" label="Submit" />
+      </div>
+    </form>
+    <!-- start show massage -->
+    <div class="card flex justify-content-center">
+      <p-toast />
+    </div>
+    <!-- end show massage -->
+  </div>
+</section>
+<!-- start spiner -->
+<ngx-spinner bdColor="rgba(0,0,0,0.6)" size="medium" color="red" type="line-spin-fade" [fullScreen]="true">
+  <p style="color: #3b82f6"> Loading... </p>
+</ngx-spinner>
+<!-- end spiner -->
