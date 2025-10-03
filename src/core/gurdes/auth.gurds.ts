@@ -1,21 +1,15 @@
 import { inject } from "@angular/core"
 import { CanActivateFn, Router } from "@angular/router"
+import { AuthSerService } from "../services/auth.ser.service"
 
-/*
-  * gurds
-  * CanActivateFn : boolean | URLTree
-*/
+
 export const gurdUser: CanActivateFn = ()  => {
-  /*
-    * لما كنت بعمل نفجيت جوه الكومبونانت كان عندي كلاس بعمل اندبيندانس علشان اقدر استعمل الموديل بتاع الروتر
-    * هنا ان افي داله مفيش كلاس علشان اقدر استعمل نفس الطريقه
-    * بيعمل نفس شغل الكلاس جوه الكومبونانت واقدر اني استعدي الروتر موديول Injector في الداله في
-  */
+
   const router= inject(Router)
-  if (localStorage.getItem('token') != null) {
+  const auth = inject(AuthSerService) // to sheard this servises with more component
+  if (auth.authorized()) {
     return true
   }else {
-    router.navigate(['login'])
-    return false
+    return router.createUrlTree(['login'])
   }
 }

@@ -30,4 +30,9 @@ export class AuthSerService {
   logIn(logInData: ILogin):Observable<any>{
     return this._httpClient.post(`${logInUrl}/auth/login`, logInData)
   }
+  authorized(){
+    if (localStorage.getItem('token') != null) {
+      return true
+    } else return false
+  }
 }
