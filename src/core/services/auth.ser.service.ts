@@ -19,7 +19,9 @@ export class AuthSerService {
   * }
   * }
 */
+
   constructor(private _httpClient:HttpClient) {}
+  userName:string = '';
   // for register form
   register(registerData: Iregister):Observable<any> {
     return this._httpClient.post(`${baseUrl}/api/v1/users/`, registerData)// الكود الاساسي بتاع الكورس
@@ -35,4 +37,13 @@ export class AuthSerService {
       return true
     } else return false
   }
+  /* make a fun to logOut  */
+  // logOut() {
+  //   // return this._httpClient.post(`${logInUrl}/logout`, {}) // => post have two param => لو ببعت رساله مع تسجيل الخروج لكن هنا مفيش حاجه بتتبعت
+  //   const user = localStorage.getItem('userName')
+  //   const id = localStorage.getItem('token')
+  //   if (!localStorage.getItem('token') !== null) {
+  //     this.userName = "User Name"
+  //   }
+  // }
 }

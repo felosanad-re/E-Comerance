@@ -1,1 +1,13 @@
-<p>products works!</p>
+<section>
+  <div class="container-fluid">
+    <h2 class="text-color-red capitalize">all products</h2>
+    <p-iconField iconPosition="right">
+      <p-inputIcon styleClass="pi pi-search" />
+      <input type="text" pInputText placeholder="Search" [(ngModel)]="searchKey" class="w-full" />
+    </p-iconField>
+    {{searchKey}}
+    @defer (on idle) {
+    <app-card [isSmall]="false" [searchKey]="searchKey" [products]="allProducts | searcProduct: searchKey"></app-card>
+    }
+  </div>
+</section>

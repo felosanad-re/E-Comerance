@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-
+import { IconFieldModule } from 'primeng/iconfield';
 @Component({
   selector: 'app-auth-footer',
   standalone: true,
-  imports: [],
+  imports: [IconFieldModule],
   templateUrl: './auth-footer.component.html',
   styleUrl: './auth-footer.component.scss'
 })

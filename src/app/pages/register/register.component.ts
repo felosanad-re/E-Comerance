@@ -7,6 +7,7 @@ import { MessageService } from 'primeng/api';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from '@angular/router';
 import { ImportsAuthModule } from '../../../core/modules/imports-auth/imports-auth.module';
+import { NotificationService } from '../../../core/services/notification.service';
 // import { RippleModule } from 'primeng/ripple';
 @Component({
   selector: 'app-register',
@@ -20,9 +21,9 @@ import { ImportsAuthModule } from '../../../core/modules/imports-auth/imports-au
 export class RegisterComponent {
     constructor(
       private _authSerService:AuthSerService,
-      private _messageService: MessageService,
+      private _notificationService: NotificationService,
       private _ngxSpinnerService:NgxSpinnerService,
-      private router: Router
+      private router: Router,
     ){
     this.initFormControls()
     this.iniFormGroub()
@@ -34,6 +35,7 @@ export class RegisterComponent {
   registeratinForm!: FormGroup
   messages!: Message[] ;
   value!: string;
+  isRegistred: boolean = false
 
   initFormControls():void{
     this.name = new FormControl('', [Validators.required, Validators.minLength(3),Validators.maxLength(15)]),
@@ -62,6 +64,7 @@ export class RegisterComponent {
     */
   submit(){
     if (this.registeratinForm.valid) {
+      this.isRegistred = true
       this.signUp(this.registeratinForm.value)
     }else{
       this.registeratinForm.markAllAsTouched();
@@ -74,12 +77,13 @@ export class RegisterComponent {
     this._authSerService.register(data).subscribe({
       next: (response) => {
         if (response.id) {
-        console.log(response);
-        this.show("success", 'success', "created successful")
+        // console.log(response);
+        this._notificationService.showSuccsess('success', "created successful")
         /*
         * هنا بخليه يجيب اليوسر نيم و الباسورد اللي سجل بيهم وينقله علي طول لصفحه الهوم بدل ما يعمل تسجيل دخول
-        *const {name, password} = data
-        *this._authSerService.logIn({name, password}).subscribe((next)=> this.router.navigate(['home']))
+        * const {name, password} = data
+        * this._authSerService.logIn({name, password}).subscribe((next)=> this.router.navigate(['home']))
+        * this._userDataService.userName.next(response.username) // هنا انا بجيب اسم المستخدم لما يعمل تسجيل دخول
         */
         }
         this._ngxSpinnerService.hide()
@@ -87,16 +91,9 @@ export class RegisterComponent {
       },
       error: (err) => {
         console.log(err);
-        this.show("error", 'Error', err.error.message)
+        this._notificationService.showError('Error', err.error.message)
         this._ngxSpinnerService.hide();
       }
     })
-  }
-  show(severity: string, summary:string, detail: string) {
-      this._messageService.add({
-        severity: severity,
-        summary: summary,
-        detail: detail,
-      });
   }
 }

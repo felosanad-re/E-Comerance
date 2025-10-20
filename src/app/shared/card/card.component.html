@@ -1,0 +1,44 @@
+<div class="flex justify-content-between flex-wrap">
+  @for (product of products; track $index) {
+  <div [ngClass]="{'col-6':isSmall, 'col-12 sm:col-4 lg:col-3': !isSmall}">
+    <div [ngClass]="{'flex flex-wrap lg:flex-nowrap justify-content-center': isSmall}">
+      <figure [routerLink]="['/details', product.id]" [ngClass]="{'sm:w-6rem lg:w-12rem mx-2':isSmall}"
+        class="shadow-2 border-round-2xl overflow-hidden m-0 cursor-pointer">
+        <img #imge onerror="this.src='https://i.imgur.com/633Fqrz.jpeg'" class="w-full h-full" [src]="product.images[0]"
+          alt="item-1" style="width: 100%; display: block;" height="240px">
+      </figure>
+      <div class="content py-1 w-full">
+        <h4 [ngClass]="{'hidden':isSmall}">{{product.title}}</h4>
+        <p class=" truncate-text overflow-hidden font-medium text-xs font-bold">{{product.description}}</p>
+        <div class="flex aling-items-center gap-2">
+          <div class="price flex gap-2 aling-items-center">
+            <span class="text-color-secondary text-xs">
+              <del>100</del>
+            </span>
+            <span class="new-price font-bold text-xs">
+              <span class="text-green-500">$</span> {{product.price}}
+            </span>
+          </div>
+          <div class="offer">
+            <span class="bg-red-500 p-1 border-circle text-white text-xs">
+              {{product.discountPercentage}}%</span>
+            <span class=" font-bold text-xs">off</span>
+          </div>
+        </div>
+      </div>
+      @if (!isSmall) {
+      @if (!product.isCart) {
+      <p-button (click)="addToCart(product); product.isCart = true" label="add to cart" severity="warning"
+        styleClass="my-2 uppercase w-full" icon="pi pi-cart-plus text-2xl" iconPos="right" />
+      }
+      @if (product.isCart) {
+      <p-button label="go to cart" severity="contrast" styleClass="my-2 uppercase w-full"
+        icon="pi pi-cart-plus text-2xl" iconPos="right" [routerLink]="['/carts']" />
+      }
+      }
+    </div>
+  </div>
+  }@empty {
+  <app-not-found [searchKey]="searchKey" class="flex-1"></app-not-found>
+  }
+</div>

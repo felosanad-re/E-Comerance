@@ -11,8 +11,8 @@
           <input [autofocus]="true" formControlName="username" pInputText placeholder="username" />
         </p-inputGroup>
         <div class="valid">
-          @if (name.dirty && name.touched ) {
-          @if (name.getError('required') ) {
+          @if (username.dirty && username.touched ) {
+          @if (username.getError('required') ) {
           <p-messages [value]="[{severity: 'error', detail: 'username is required', summary: 'validation error' }]"
             [enableService]="false" [closable]="false" />
           }
@@ -39,18 +39,9 @@
       <!-- start wirnning msg validation form-->
       <div class="card flex justify-content-center">
         <p-button (onClick)="submit()" label="LogIn" />
+        <p-button [routerLink]="['/home']" class="mx-6" label="See our products" severity="danger" />
       </div>
       <!-- end wirnning msg => validation form -->
     </form>
-    <!-- start toast massage -->
-    <div class="card flex justify-content-center">
-      <p-toast />
-    </div>
-    <!-- end toast massage -->
   </div>
 </section>
-<!-- start spiner -->
-<ngx-spinner bdColor="rgba(0,0,0,0.6)" size="medium" color="red" type="line-spin-fade" [fullScreen]="true">
-  <p style="color: #3b82f6"> Loading... </p>
-</ngx-spinner>
-<!-- end spiner -->

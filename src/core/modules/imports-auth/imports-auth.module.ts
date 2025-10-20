@@ -24,7 +24,6 @@ import { AutoFocusModule } from 'primeng/autofocus';
   InputTextModule,
   ButtonModule,
   MessagesModule,
-  ToastModule,
   ButtonModule,
   NgxSpinnerModule,
   AutoFocusModule
@@ -36,11 +35,9 @@ import { AutoFocusModule } from 'primeng/autofocus';
   InputTextModule,
   ButtonModule,
   MessagesModule,
-  ToastModule,
   ButtonModule,
   NgxSpinnerModule,
   AutoFocusModule
   ],
-  providers: [MessageService]
 })
 export class ImportsAuthModule { }
